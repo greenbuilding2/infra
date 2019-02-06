@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Floor to the Simulator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>All The Building</h1>
+<table border="1" align="center">
+    <tr>
+        <td>Floor ID</td>
+        <td>Cluster Number</td>
+    </tr>
+    <tr th:each ="i:${floors}">
+        <td th:text = "${i.id}"></td>
+        <td th:text = "${i.number}"></td>
+    </tr>
+</table>
+
+<form action="#" th:action="@{/add/node}" th:object="${node}" method="post">
+    <div>
+        <label>Please select a floor for the node:
+            <select th:field = "*{clusterId}" th:remove ="all-but-first">
+                <option th:each="i: ${clusters}"
+                        th:value="${i.id}" th:text="${i.floor}"> Cluster</option>
+            </select>
+        </label>
+    </div>
+    <p>Node name: <input type="text" th:field="*{name}" /></p>
+    <p>Floor: <input type="text" th:field="*{room}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
+
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Floor to the Simulator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/add/building}" th:object="${building}" method="post">
+    <p>Floor Number: <input type="text" th:field="*{number}" /></p>
+    <p>Building Longitude: <input type="text" th:field="*{longitude}" /></p>
+    <p>Building Latitude: <input type="text" th:field="*{latitude}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
