@@ -114,4 +114,8 @@ public class buildingService {
         }
         return res;
     }
+
+    public List<Object[]> countBuildingClustersAndNodes(long building_id) {
+        return buildingRepository.countBuildingClustersAndNodes(building_id);
+    }
 }

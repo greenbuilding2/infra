@@ -14,6 +14,7 @@ public class nodeNested {
     private String type;
     private String series_number;
     private Date install_time;
+    private Date last_maintenance;
     private String status;
     private Double x_coordinate;
     private Double y_coordinate;
@@ -27,6 +28,7 @@ public class nodeNested {
         this.type = node.getType();
         this.series_number = node.getSeries_number();
         this.install_time = node.getInstall_time();
+        this.last_maintenance = node.getLast_maintenance();
         this.status = node.getStatus();
         this.sensors = sensors;
         this.x_coordinate = node.getX_coordinate();
@@ -112,6 +114,10 @@ public class nodeNested {
     public Double getY_coordinate() { return y_coordinate; }
 
     public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
+
+    public Date getLast_maintenance() { return last_maintenance; }
+
+    public void setLast_maintenance(Date last_maintenance) { this.last_maintenance = last_maintenance; }
 
     @Override
     public String toString() {

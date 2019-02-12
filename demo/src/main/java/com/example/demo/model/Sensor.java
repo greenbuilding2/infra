@@ -15,6 +15,7 @@ import java.util.Date;
         "type",
         "series_number",
         "install_time",
+        "last_maintenance",
         "status",
         "x_coordinate",
         "y_coordinate"
@@ -31,6 +32,7 @@ public class Sensor {
     private String type;
     private String series_number;
     private Date install_time;
+    private Date last_maintenance;
     private String status;
     private Double y_coordinate;
     private Double x_coordinate;
@@ -114,13 +116,13 @@ public class Sensor {
         this.y_coordinate = y_coordinate;
     }
 
-    public Integer getFloor_number() {
-        return floor_number;
-    }
+    public Integer getFloor_number() { return floor_number; }
 
-    public void setFloor_number(Integer floor_number) {
-        this.floor_number = floor_number;
-    }
+    public void setFloor_number(Integer floor_number) { this.floor_number = floor_number; }
+
+    public Date getLast_maintenance() { return last_maintenance; }
+
+    public void setLast_maintenance(Date last_maintenance) { this.last_maintenance = last_maintenance; }
 
     @Override
     public String toString() {

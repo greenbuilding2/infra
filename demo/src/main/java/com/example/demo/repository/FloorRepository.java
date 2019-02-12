@@ -26,4 +26,9 @@ public interface FloorRepository extends CrudRepository<Floor, Long> {
     @Query("select floor from Floor floor where floor.building_id = :building_id")
     List<Floor> findFloorByBuildingId(@Param("building_id") long building_id);
 
+    @Transactional
+    @Query(value="SELECT count(DISTINCT r.id), count(DISTINCT n.id),count(DISTINCT s.id) FROM floor f INNER JOIN room r ON f.id = r.floor_id LEFT JOIN node n ON r.id= n.room_id  LEFT JOIN sensor s ON n.id=s.node_id WHERE f.id = :floor_id", nativeQuery = true)
+    List<Object[]> countFloorRoomNodeSensor(@Param("floor_id") long floor_id);
+
+
 }

@@ -13,6 +13,7 @@ public class clusterNested {
     private String type;
     private String series_number;
     private Date install_time;
+    private Date last_maintenance;
     private String status;
     private long building_id;
     private long floor_id;
@@ -31,6 +32,7 @@ public class clusterNested {
         this.type = cluster.getType();
         this.series_number = cluster.getSeries_number();
         this.install_time = cluster.getInstall_time();
+        this.last_maintenance = cluster.getLast_maintenance();
         this.status = cluster.getStatus();
         this.x_coordinate = cluster.getX_coordinate();
         this.y_coordinate = cluster.getY_coordinate();
@@ -47,6 +49,7 @@ public class clusterNested {
         this.type = cluster.getType();
         this.series_number = cluster.getSeries_number();
         this.install_time = cluster.getInstall_time();
+        this.last_maintenance = cluster.getLast_maintenance();
         this.status = cluster.getStatus();
         this.rooms = rooms;
         this.x_coordinate = cluster.getX_coordinate();
@@ -61,6 +64,7 @@ public class clusterNested {
         this.type = cluster.getType();
         this.series_number = cluster.getSeries_number();
         this.install_time = cluster.getInstall_time();
+        this.last_maintenance = cluster.getLast_maintenance();
         this.status = cluster.getStatus();
         this.x_coordinate = cluster.getX_coordinate();
         this.y_coordinate = cluster.getY_coordinate();
@@ -163,6 +167,10 @@ public class clusterNested {
     public Double getY_coordinate() { return y_coordinate; }
 
     public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
+
+    public Date getLast_maintenance() { return last_maintenance; }
+
+    public void setLast_maintenance(Date last_maintenance) { this.last_maintenance = last_maintenance; }
 
     @Override
     public String toString() {

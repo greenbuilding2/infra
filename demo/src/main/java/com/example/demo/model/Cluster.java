@@ -13,6 +13,7 @@ import java.util.Date;
         "type",
         "series_number",
         "install_time",
+        "last_maintenance",
         "status",
         "building_id",
         "floor_id",
@@ -29,6 +30,7 @@ public class Cluster {
     private String type;
     private String series_number;
     private Date install_time;
+    private Date last_maintenance;
     private String status;
     private long building_id;
     private long floor_id;
@@ -107,7 +109,9 @@ public class Cluster {
 
     public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
 
+    public Date getLast_maintenance() { return last_maintenance; }
 
+    public void setLast_maintenance(Date last_maintenance) { this.last_maintenance = last_maintenance; }
 
     @Override
     public String toString() {

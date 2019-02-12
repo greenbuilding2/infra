@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         "type",
         "series_number",
         "install_time",
+        "last_maintenance",
         "status",
         "x_coordinate",
         "y_coordinate"
@@ -29,6 +30,7 @@ public class Node {
     private String type;
     private String series_number;
     private Date install_time;
+    private Date last_maintenance;
     private String status;
     private Double x_coordinate;
     private Double y_coordinate;
@@ -104,6 +106,10 @@ public class Node {
     public Double getY_coordinate() { return y_coordinate; }
 
     public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
+
+    public Date getLast_maintenance() { return last_maintenance; }
+
+    public void setLast_maintenance(Date last_maintenance) { this.last_maintenance = last_maintenance; }
 
 
     @Override
