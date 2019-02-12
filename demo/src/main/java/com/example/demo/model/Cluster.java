@@ -16,6 +16,8 @@ import java.util.Date;
         "status",
         "building_id",
         "floor_id",
+        "x_coordinate",
+        "y_coordinate"
 })
 
 @Entity
@@ -23,14 +25,15 @@ import java.util.Date;
 public class Cluster {
     @Id
     private long id;
-    private long building_id;
-    private long floor_id;
     private String name;
     private String type;
     private String series_number;
     private Date install_time;
     private String status;
-
+    private long building_id;
+    private long floor_id;
+    private Double x_coordinate;
+    private Double y_coordinate;
 
     public long getId() {
         return id;
@@ -95,6 +98,16 @@ public class Cluster {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Double getX_coordinate() { return x_coordinate; }
+
+    public void setX_coordinate(Double x_coordinate) { this.x_coordinate = x_coordinate; }
+
+    public Double getY_coordinate() { return y_coordinate; }
+
+    public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
+
+
 
     @Override
     public String toString() {

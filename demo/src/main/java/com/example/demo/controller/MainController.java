@@ -71,7 +71,7 @@ public class MainController {
             ClientHttpRequestFactory requestFactory = new
                     HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
             RestTemplate restTemplate = new RestTemplate(requestFactory);
-            String url = "http://localhost:3005/clusters";
+            String url = "http://localhost:3005/clusters";   //simulator url
             String result = restTemplate.postForObject(url, cluster, String.class);
             return result;
         } else {
@@ -88,7 +88,7 @@ public class MainController {
             ClientHttpRequestFactory requestFactory = new
                     HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
             RestTemplate restTemplate = new RestTemplate(requestFactory);
-            String url = "http://localhost:3005/nodes";
+            String url = "http://localhost:3005/nodes"; //simulator url
             String result = restTemplate.postForObject(url, node, String.class);
             return result;
         } else {
@@ -105,7 +105,7 @@ public class MainController {
             ClientHttpRequestFactory requestFactory = new
                     HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
             RestTemplate restTemplate = new RestTemplate(requestFactory);
-            String url = "http://localhost:3005/sensors";
+            String url = "http://localhost:3005/sensors"; //simulator url
             String result = restTemplate.postForObject(url, sensor, String.class);
             return result;
         } else {
@@ -144,9 +144,19 @@ public class MainController {
     {
         return buildingService.searchBuildingByCity(city,state,zipcode);
     }
-
     /**
-     * delete
+     * find sensor on floor plan
+     */
+    @CrossOrigin(origins = "*")
+    @GetMapping("floors/search/floor_plan")
+    public @ResponseBody Sensor searchSensorByLocation(
+            @RequestParam final Double x_coordinate,
+            @RequestParam final Double y_coordinate)
+    {
+        return sensorService.searchSensorByLocation(x_coordinate, y_coordinate);
+    }
+    /**
+     * delete building/floor/room
      */
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "building_id")
@@ -172,6 +182,11 @@ public class MainController {
         roomService.deleteRoom(room_id);
     }
 
+    /**
+     * delete cluster/node/sensor
+     * @param cluster_id
+     * @param source
+     */
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/clusters/{cluster_id}")
     public @ResponseBody void deleteCluster(
@@ -328,7 +343,7 @@ public class MainController {
         ClientHttpRequestFactory requestFactory = new
                 HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
         RestTemplate restTemplate = new RestTemplate(requestFactory);
-        String url = "http://localhost:3005/clusters/" +cluster_id;
+        String url = "http://localhost:3005/clusters/" +cluster_id; //simulator url
         restTemplate.put(url, clusterNew);
     }
 
@@ -342,7 +357,7 @@ public class MainController {
         ClientHttpRequestFactory requestFactory = new
                 HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
         RestTemplate restTemplate = new RestTemplate(requestFactory);
-        String url = "http://localhost:3005/nodes/" +node_id;
+        String url = "http://localhost:3005/nodes/" +node_id; //simulator url
         restTemplate.put(url, nodeNew);
     }
 
@@ -356,7 +371,7 @@ public class MainController {
         ClientHttpRequestFactory requestFactory = new
                 HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
         RestTemplate restTemplate = new RestTemplate(requestFactory);
-        String url = "http://localhost:3005/sensors/" +sensor_id;
+        String url = "http://localhost:3005/sensors/" +sensor_id; //simulator url
         restTemplate.put(url, sensorNew);
     }
 }

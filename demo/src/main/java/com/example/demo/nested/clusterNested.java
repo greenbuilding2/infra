@@ -9,13 +9,15 @@ import java.util.List;
 
 public class clusterNested {
     private long id;
-    private long building_id;
-    private long floor_id;
     private String name;
     private String type;
     private String series_number;
     private Date install_time;
     private String status;
+    private long building_id;
+    private long floor_id;
+    private Double x_coordinate;
+    private Double y_coordinate;
 
     private List<Room> rooms;
     private List<Node> nodes;
@@ -30,6 +32,8 @@ public class clusterNested {
         this.series_number = cluster.getSeries_number();
         this.install_time = cluster.getInstall_time();
         this.status = cluster.getStatus();
+        this.x_coordinate = cluster.getX_coordinate();
+        this.y_coordinate = cluster.getY_coordinate();
         this.rooms = rooms;
         this.nodes = nodes;
         this.sensors = sensors;
@@ -45,6 +49,8 @@ public class clusterNested {
         this.install_time = cluster.getInstall_time();
         this.status = cluster.getStatus();
         this.rooms = rooms;
+        this.x_coordinate = cluster.getX_coordinate();
+        this.y_coordinate = cluster.getY_coordinate();
     }
 
     public clusterNested(Cluster cluster, List<Node> nodes, List<Sensor> sensors) {
@@ -56,6 +62,8 @@ public class clusterNested {
         this.series_number = cluster.getSeries_number();
         this.install_time = cluster.getInstall_time();
         this.status = cluster.getStatus();
+        this.x_coordinate = cluster.getX_coordinate();
+        this.y_coordinate = cluster.getY_coordinate();
         this.nodes = nodes;
         this.sensors = sensors;
     }
@@ -147,6 +155,14 @@ public class clusterNested {
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
+
+    public Double getX_coordinate() { return x_coordinate; }
+
+    public void setX_coordinate(Double x_coordinate) { this.x_coordinate = x_coordinate; }
+
+    public Double getY_coordinate() { return y_coordinate; }
+
+    public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
 
     @Override
     public String toString() {

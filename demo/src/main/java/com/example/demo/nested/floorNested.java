@@ -8,10 +8,12 @@ import java.util.List;
 public class floorNested {
 
     private long id;
-    private long building_id;
+    private String floorplan_url;
     private Integer floor_number;
+    private long building_id;
+    private int num_of_sensors;
 
-    private Cluster cluster;
+    private List<Cluster> clusters;
     private List<Room> rooms;
     private List<Node> nodes;
     private List<Sensor> sensors;
@@ -24,11 +26,11 @@ public class floorNested {
         this.nodes = nodes;
     }
 
-    public floorNested(Floor floor, Cluster cluster, List<Room> rooms, List<Node> nodes, List<Sensor> sensors) {
+    public floorNested(Floor floor, List<Cluster> clusters, List<Room> rooms, List<Node> nodes, List<Sensor> sensors) {
         this.id = floor.getId();
         this.building_id = floor.getBuilding_id();
         this.floor_number = floor.getFloor_number();
-        this.cluster = cluster;
+        this.clusters = clusters;
         this.rooms = rooms;
         this.nodes = nodes;
         this.sensors = sensors;
@@ -58,12 +60,12 @@ public class floorNested {
         this.floor_number = floor_number;
     }
 
-    public Cluster getCluster() {
-        return cluster;
+    public List<Cluster> getClusters() {
+        return clusters;
     }
 
-    public void setCluster(Cluster cluster) {
-        this.cluster = cluster;
+    public void setClusters(List<Cluster> cluster) {
+        this.clusters = clusters;
     }
 
     public List<Room> getRooms() {
@@ -89,6 +91,14 @@ public class floorNested {
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
+
+    public String getFloorplan_url() { return floorplan_url; }
+
+    public void setFloorplan_url(String floorplan_url) { this.floorplan_url = floorplan_url; }
+
+    public int getNum_of_sensors() { return num_of_sensors; }
+
+    public void setNum_of_sensors(int num_of_sensors) { this.num_of_sensors = num_of_sensors; }
 
     @Override
     public String toString() {

@@ -10,6 +10,23 @@ public class sensorService {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * find sensor on floor plan
+     * @param x_coordinate
+     * @param y_coordinate
+     * @return
+     */
+    public Sensor searchSensorByLocation(Double x_coordinate, Double y_coordinate) {
+        Iterable<Sensor> sensors = sensorRepository.findAll();
+        for (Sensor sensor: sensors) {
+            Double x = sensor.getX_coordinate();
+            Double y = sensor.getY_coordinate();
+            if (x_coordinate == x && y_coordinate == y)
+                return sensor;
+        }
+        return null;
+    }
+
     public String findSensorBySensorId(String sensorId)
     {
         long sensor_id = Long.valueOf(sensorId).longValue();

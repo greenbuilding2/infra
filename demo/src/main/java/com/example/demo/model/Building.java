@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         "address",
         "city",
         "state",
+        "country",
         "zipcode",
         "num_of_floors",
         "longitude",
@@ -27,6 +28,7 @@ public class Building {
     private String address;
     private String city;
     private String state;
+    private String country;
     private String zipcode;
     private String num_of_floors;
     private Double longitude;
@@ -70,6 +72,14 @@ public class Building {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getZipcode() {

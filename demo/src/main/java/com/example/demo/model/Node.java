@@ -16,6 +16,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         "series_number",
         "install_time",
         "status",
+        "x_coordinate",
+        "y_coordinate"
 })
 @Entity
 public class Node {
@@ -28,6 +30,8 @@ public class Node {
     private String series_number;
     private Date install_time;
     private String status;
+    private Double x_coordinate;
+    private Double y_coordinate;
 
     public long getId() {
         return id;
@@ -92,6 +96,15 @@ public class Node {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Double getX_coordinate() { return x_coordinate; }
+
+    public void setX_coordinate(Double x_coordinate) { this.x_coordinate = x_coordinate; }
+
+    public Double getY_coordinate() { return y_coordinate; }
+
+    public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
+
 
     @Override
     public String toString() {

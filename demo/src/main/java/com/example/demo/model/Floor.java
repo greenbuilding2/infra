@@ -10,8 +10,10 @@ public class Floor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long building_id;
+    private String floorplan_url;
     private Integer floor_number;
+    private long building_id;
+    private int num_of_sensors;
 
     public long getId() {
         return id;
@@ -36,6 +38,15 @@ public class Floor {
     public void setFloor_number(Integer floor_number) {
         this.floor_number = floor_number;
     }
+
+    public String getFloorplan_url() { return floorplan_url; }
+
+    public void setFloorplan_url(String floorplan_url) { this.floorplan_url = floorplan_url; }
+
+    public int getNum_of_sensors() { return num_of_sensors; }
+
+    public void setNum_of_sensors(int num_of_sensors) { this.num_of_sensors = num_of_sensors; }
+
 
     @Override
     public String toString() {

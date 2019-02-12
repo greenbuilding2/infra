@@ -15,6 +15,8 @@ public class nodeNested {
     private String series_number;
     private Date install_time;
     private String status;
+    private Double x_coordinate;
+    private Double y_coordinate;
     private List<Sensor> sensors;
 
     public nodeNested(Node node, List<Sensor> sensors) {
@@ -27,6 +29,8 @@ public class nodeNested {
         this.install_time = node.getInstall_time();
         this.status = node.getStatus();
         this.sensors = sensors;
+        this.x_coordinate = node.getX_coordinate();
+        this.y_coordinate = node.getY_coordinate();
     }
 
     public long getId() {
@@ -100,6 +104,14 @@ public class nodeNested {
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
+
+    public Double getX_coordinate() { return x_coordinate; }
+
+    public void setX_coordinate(Double x_coordinate) { this.x_coordinate = x_coordinate; }
+
+    public Double getY_coordinate() { return y_coordinate; }
+
+    public void setY_coordinate(Double y_coordinate) { this.y_coordinate = y_coordinate; }
 
     @Override
     public String toString() {

@@ -16,6 +16,8 @@ import java.util.Date;
         "series_number",
         "install_time",
         "status",
+        "x_coordinate",
+        "y_coordinate"
 })
 
 @Entity
@@ -24,11 +26,15 @@ public class Sensor {
     private long id;
     private long node_id;
     private long cluster_id;
+    private Integer floor_number;
     private String name;
     private String type;
     private String series_number;
     private Date install_time;
     private String status;
+    private Double y_coordinate;
+    private Double x_coordinate;
+
 
     public long getId() {
         return id;
@@ -93,6 +99,29 @@ public class Sensor {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Double getX_coordinate() { return x_coordinate; }
+
+    public void setX_coordinate(Double x_coordinate) {
+        this.x_coordinate = x_coordinate;
+    }
+
+    public Double getY_coordinate() {
+        return y_coordinate;
+    }
+
+    public void setY_coordinate(Double y_coordinate) {
+        this.y_coordinate = y_coordinate;
+    }
+
+    public Integer getFloor_number() {
+        return floor_number;
+    }
+
+    public void setFloor_number(Integer floor_number) {
+        this.floor_number = floor_number;
+    }
+
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();

@@ -11,6 +11,7 @@ public class buildingNested {
     private String address;
     private String city;
     private String state;
+    private String country;
     private String zipcode;
     private String num_of_floors;
     private Double longitude;
@@ -25,6 +26,7 @@ public class buildingNested {
         this.address = building.getAddress();
         this.city = building.getCity();
         this.state = building.getState();
+        this.country = building.getCountry();
         this.zipcode = building.getZipcode();
         this.num_of_floors = building.getNum_of_floors();
         this.latitude = building.getLatitude();
@@ -72,6 +74,10 @@ public class buildingNested {
     public void setState(String state) {
         this.state = state;
     }
+
+    public String getCountry() { return country; }
+
+    public void setCountry(String country) { this.country = country; }
 
     public String getZipcode() {
         return zipcode;

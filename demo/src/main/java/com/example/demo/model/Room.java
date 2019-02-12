@@ -10,9 +10,14 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String roomImage_url;
+    private Integer room_number;
     private long floor_id;
     private long building_id;
-    private Integer room_number;
+    private Double x_coordinate_start;
+    private Double x_coordinate_end;
+    private Double y_coordinate_start;
+    private Double y_coordiante_end;
 
     public long getId() {
         return id;
@@ -21,6 +26,34 @@ public class Room {
     public void setId(long id) {
         this.id = id;
     }
+
+    public String getRoomImage_url() { return roomImage_url; }
+
+    public void setRoomImage_url(String roomImage_url) { this.roomImage_url = roomImage_url; }
+
+    public Integer getRoom_number() {
+        return room_number;
+    }
+
+    public void setRoom_number(Integer room_number) {
+        this.room_number = room_number;
+    }
+
+    public Double getX_coordinate_start() { return x_coordinate_start; }
+
+    public void setX_coordinate_start(Double x_coordinate_start) { this.x_coordinate_start = x_coordinate_start; }
+
+    public Double getX_coordinate_end() { return x_coordinate_end; }
+
+    public void setX_coordinate_end(Double x_coordinate_end) { this.x_coordinate_end = x_coordinate_end; }
+
+    public Double getY_coordinate_start() { return y_coordinate_start; }
+
+    public void setY_coordinate_start(Double y_coordinate_start) { this.y_coordinate_start = y_coordinate_start; }
+
+    public Double getY_coordiante_end() { return y_coordiante_end; }
+
+    public void setY_coordiante_end(Double y_coordiante_end) { this.y_coordiante_end = y_coordiante_end; }
 
     public long getFloor_id() {
         return floor_id;
@@ -36,14 +69,6 @@ public class Room {
 
     public void setBuilding_id(long building_id) {
         this.building_id = building_id;
-    }
-
-    public Integer getRoom_number() {
-        return room_number;
-    }
-
-    public void setRoom_number(Integer room_number) {
-        this.room_number = room_number;
     }
 
     @Override
