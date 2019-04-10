@@ -20,36 +20,31 @@ public class clusterService {
     @Autowired
     private FloorRepository floorRepository;
 
-    public List<Long> getSensorIDByClusterID(String clusterID)
+    /**
+    public List<Sensor> getSensorIDByClusterID(long cluster_id)
     {
-        long cluster_id = Long.valueOf(clusterID).longValue();
-        List<Long> sensorId_List = new LinkedList<>();
+        List<Sensor> sensorId_List = new LinkedList<>();
         List<Sensor> sensors = sensorRepository.findSensorByClusterId(cluster_id);
         for(Sensor sensor: sensors) {
             sensorId_List.add(sensor.getId());
         }
         return sensorId_List;
-    }
+    }*/
 
-    public Cluster updateClusterByClusterID(String clusterid, Cluster clusterOld) {
-        long cluster_id = Long.valueOf(clusterid).longValue();
+    public Cluster updateClusterByClusterID(long cluster_id, Cluster cluster) {
         Cluster clusterFromDB = clusterRepository.findById(cluster_id).get();
-        if (clusterOld.getName() != null) {
-            clusterFromDB.setName(clusterOld.getName());
+        if (!cluster.getName().equals("")) {
+            clusterFromDB.setName(cluster.getName());
         }
-
-        if (clusterOld.getStatus() != null) {
-            clusterFromDB.setStatus(clusterOld.getStatus());
-            List<Node> nodes = nodeRepository.findNodeByClusterId(cluster_id);
-            for(Node node: nodes) {
-                node.setStatus(clusterOld.getStatus());
-                nodeRepository.save(node);
-                List<Sensor> sensors = sensorRepository.findSensorByNodeId(node.getId());
-                for(Sensor sensor: sensors) {
-                    sensor.setStatus(clusterOld.getStatus());
-                    sensorRepository.save(sensor);
-                }
-            }
+        if (!cluster.getX_coordinate().equals("") && !cluster.getY_coordinate().equals("")) {
+            clusterFromDB.setX_coordinate(cluster.getX_coordinate());
+            clusterFromDB.setY_coordinate(cluster.getX_coordinate());
+        }
+        if (!cluster.getStatus().equals("")) {
+            clusterFromDB.setStatus(cluster.getStatus());
+        }
+        if (!cluster.getSeries_number().equals("")) {
+            clusterFromDB.setSeries_number(cluster.getSeries_number());
         }
         clusterRepository.save(clusterFromDB);
         return clusterFromDB;
@@ -60,12 +55,10 @@ public class clusterService {
         return cluster.toString();
     }
 
-    public void deleteCluster(Long cluster_id){
-        Long clusterId = Long.valueOf(cluster_id).longValue();
-
-        Iterable<Cluster> clusters = clusterRepository.findAll();
+    public void deleteCluster(long cluster_id, long building_id){
+        Iterable<Cluster> clusters = clusterRepository.findClusterByBuildingId(building_id);
         for(Cluster cluster: clusters){
-            if(clusterId == cluster.getId()) {
+            if(cluster_id == cluster.getId()) {
                 clusterRepository.deleteById(cluster.getId());
                 nodeRepository.deleteNodeByClusterId(cluster.getId());
                 sensorRepository.deleteSensorByClusterId(cluster.getId());
@@ -74,16 +67,14 @@ public class clusterService {
     }
 
     public String getClusterByClusterId(long cluster_id){
-        Long clusterId = Long.valueOf(cluster_id).longValue();
-        return clusterRepository.findById(clusterId).get().toString();
+        return clusterRepository.findById(cluster_id).get().toString();
     }
 
     public String getClusterNestedByClusterId(long cluster_id, String requirement){
-        Long clusterId = Long.valueOf(cluster_id).longValue();
-        Cluster cluster = clusterRepository.findById(clusterId).get();
-        List<Room> rooms = roomRepository.findRoomByFloorId(cluster.getFloor_id());
-        List<Node> nodes = nodeRepository.findNodeByClusterId(clusterId);
-        List<Sensor> sensors = sensorRepository.findSensorByClusterId(clusterId);
+        Cluster cluster = clusterRepository.findById(cluster_id).get();
+        List<Room> rooms = roomRepository.findRoomByFloorId(cluster.getFloor_id(), cluster.getBuilding_id());
+        List<Node> nodes = nodeRepository.findNodeByClusterId(cluster_id);
+        List<Sensor> sensors = sensorRepository.findSensorByClusterId(cluster_id);
         clusterNested clusterNest;
         switch(requirement) {
             case "room, node, sensor":
@@ -96,7 +87,7 @@ public class clusterService {
                 clusterNest = new clusterNested(cluster,rooms);
                 return clusterNest.toString();
         }
-        return clusterRepository.findById(clusterId).get().toString();
+        return clusterRepository.findById(cluster_id).get().toString();
     }
 
 }

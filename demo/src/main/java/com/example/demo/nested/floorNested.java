@@ -3,6 +3,9 @@ package com.example.demo.nested;
 import com.example.demo.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class floorNested {
@@ -11,8 +14,7 @@ public class floorNested {
     private String floorplan_url;
     private Integer floor_number;
     private long building_id;
-    private int num_of_sensors;
-
+//    private ArrayList<String> sensor_type;
     private List<Cluster> clusters;
     private List<Room> rooms;
     private List<Node> nodes;
@@ -26,6 +28,8 @@ public class floorNested {
         this.nodes = nodes;
     }
 
+
+
     public floorNested(Floor floor, List<Cluster> clusters, List<Room> rooms, List<Node> nodes, List<Sensor> sensors) {
         this.id = floor.getId();
         this.building_id = floor.getBuilding_id();
@@ -35,6 +39,14 @@ public class floorNested {
         this.nodes = nodes;
         this.sensors = sensors;
     }
+
+//    public ArrayList<String> getSensor_type() {
+//        return sensor_type;
+//    }
+//
+//    public void setSensor_type(ArrayList<String> sensor_type) {
+//        this.sensor_type = sensor_type;
+//    }
 
     public long getId() {
         return id;
@@ -95,10 +107,6 @@ public class floorNested {
     public String getFloorplan_url() { return floorplan_url; }
 
     public void setFloorplan_url(String floorplan_url) { this.floorplan_url = floorplan_url; }
-
-    public int getNum_of_sensors() { return num_of_sensors; }
-
-    public void setNum_of_sensors(int num_of_sensors) { this.num_of_sensors = num_of_sensors; }
 
     @Override
     public String toString() {

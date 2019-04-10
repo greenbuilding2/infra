@@ -23,8 +23,8 @@ public interface RoomRepository extends CrudRepository<Room, Long> {
     void deleteRoomByFloorId(@Param("floor_id")long floor_id);
 
     @Transactional
-    @Query("select room from Room room where room.floor_id = :floor_id")
-    List<Room> findRoomByFloorId(@Param("floor_id") long floor_id);
+    @Query("SELECT room FROM Room room WHERE room.floor_id = :floor_id AND room.building_id = :building_id")
+    List<Room> findRoomByFloorId(@Param("floor_id") long floor_id, @Param("building_id") long building_id);
 
     @Transactional
     @Query(value="SELECT count(DISTINCT n.id),count(DISTINCT s.id) FROM room r INNER JOIN node n ON r.id = n.room_id LEFT JOIN sensor s ON n.id=s.node_id WHERE r.id = :room_id", nativeQuery = true)

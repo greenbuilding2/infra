@@ -31,19 +31,25 @@ public class roomService {
         }
     }
 
-    public Room getRoomByRoomId(long room_id){
-        Long roomId = Long.valueOf(room_id).longValue();
-        return roomRepository.findById(roomId).get();
+    public Room getRoomByRoomId(long room_id, long floor_id, long building_id){
+        List<Room> rooms = roomRepository.findRoomByFloorId(floor_id, building_id);
+        Room res = null;
+        for (Room room : rooms) {
+            if (room.getId() == room_id) {
+                res = room;
+            }
+        }
+        return res;
     }
 
     public roomNested getRoomNestedByRoomId(long room_id, String requirement){
-        Long roomId = Long.valueOf(room_id).longValue();
-        Room room = roomRepository.findById(roomId).get();
+
+        Room room = roomRepository.findById(room_id).get();
         List<Node> nodeList = nodeRepository.findNodeByRoomId(room.getId());
         List<Sensor> sensorList = new ArrayList<>();
 
         for (Node nodes: nodeList) {
-            List<Sensor> sensors = sensorRepository.findSensorByNodeId(nodes.getId());
+            List<Sensor> sensors = sensorRepository.findSensorByNodeandClusterId(nodes.getId(), nodes.getCluster_id());
             for (Sensor sensor: sensors)
             sensorList.add(sensor);
         }

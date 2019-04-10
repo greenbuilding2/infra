@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         "y_coordinate"
 })
 @Entity
+@Table(name = "node")
 public class Node {
     @Id
     private long id;

@@ -42,28 +42,43 @@ public class floorService {
         }
     }
 
-    public Floor getFloorByFloorId(long floor_id){
-        Long floorId = Long.valueOf(floor_id).longValue();
-        return floorRepository.findById(floorId).get();
+    public Floor getFloorByFloorId(long floor_id, long building_id){
+        List<Floor> floors = floorRepository.findFloorByBuildingId(building_id);
+        for (Floor floor: floors) {
+            if (floor.getId() == floor_id) {
+                return floor;
+            }
+        }
+        return null;
     }
 
-    public floorNested getFloorNestedByFloorId(long floor_id, String requirement){
-        Long floorId = Long.valueOf(floor_id).longValue();
-        Floor floor = floorRepository.findFloorByFloorID(floorId);
+    public List<Floor> getFloorByBuildingID(long building_id) {
+        return floorRepository.findFloorByBuildingId(building_id);
+    }
 
-        List<Cluster> clusterList = clusterRepository.findClusterByFloorID(floorId);
-        List<Room> roomList = roomRepository.findRoomByFloorId(floorId);
+    public int countSensorsByTypeNStatus(long floor_id, long building_id, String type, String status) {
+        return floorRepository.countSensorByTypeNStatus(floor_id, building_id, status, type);
+    }
+
+    public floorNested getFloorNestedByFloorId(long floor_id, long building_id, String requirement){
+        List<Floor> floors = floorRepository.findFloorByBuildingId(building_id);
+        Floor floor = null;
+        for (Floor f: floors) {
+            if (f.getId() == floor_id) {
+                floor = f;
+            }
+        }
+        List<Cluster> clusterList = clusterRepository.findClusterByFloorID(floor_id, building_id);
+        List<Room> roomList = roomRepository.findRoomByFloorId(floor_id, building_id);
         List<Node> nodeList = new LinkedList<>();
         List<Sensor> sensorList = new LinkedList<>();
-
         for (Cluster cluster: clusterList) {
-            List<Node> nodesOfOneCluster = new ArrayList<>();
-            nodesOfOneCluster = nodeRepository.findNodeByClusterId(cluster.getId());
+            List<Node> nodesOfOneCluster = nodeRepository.findNodeByClusterId(cluster.getId());
             for (Node node: nodesOfOneCluster) {
                 nodeList.add(node);
             }
         }
-        Iterable<Sensor> sensors = sensorRepository.findAll();
+        Iterable<Sensor> sensors = sensorRepository.findSensorByBuildingId(building_id);
         for(Sensor sensor: sensors) {
             if(sensor.getFloor_number() == floor.getFloor_number()){
                 sensorList.add(sensor);
@@ -93,8 +108,39 @@ public class floorService {
         return res;
     }
 
+    /**
+     * multiple count
+     * @param floor_id
+     * @return
+     */
     public List<Object[]> countFloorRoomNodeSensor(long floor_id) {
         return floorRepository.countFloorRoomNodeSensor(floor_id);
     }
+
+    /**
+     * count sensors by floor id
+     */
+
+    public int countSensorByFloorID(long floor_id, long building_id) {
+
+        return floorRepository.countSensorByFloorID(floor_id, building_id);
+    }
+
+    /**
+     * count sensors of different type by floor id
+     */
+
+    public int countSensorsByFlooridNType(long floor_id, long building_id, String type) {
+        return floorRepository.countSensorsByFlooridNType(floor_id, building_id, type);
+    }
+
+    /**
+     * count sensors of different status by floor id
+     */
+
+    public int countSensorsByFlooridNStatus(long floor_id, long building_id, String status) {
+        return floorRepository.countSensorsByFlooridNStatus(floor_id, building_id, status);
+    }
+
 
 }

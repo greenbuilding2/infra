@@ -20,32 +20,34 @@ public class nodeService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public List<Long> getSensorIDByNodeID(String nodeId)
-    {
-        long node_id = Long.valueOf(nodeId).longValue();
-        List<Long> sensorId_List = new LinkedList<>();
-        List<Sensor> sensors = sensorRepository.findSensorByNodeId(node_id);
-        for(Sensor sensor: sensors) {
-            sensorId_List.add(sensor.getId());
-        }
-        return sensorId_List;
-    }
+//    public List<Long> getSensorIDByNodeID(String nodeId)
+//    {
+//        long node_id = Long.valueOf(nodeId).longValue();
+//        List<Long> sensorId_List = new LinkedList<>();
+//        List<Sensor> sensors = sensorRepository.findSensorByNodeId(node_id);
+//        for(Sensor sensor: sensors) {
+//            sensorId_List.add(sensor.getId());
+//        }
+//        return sensorId_List;
+//    }
 
-    public Node updateNodeByNodeId(String nodeId, Node node){
-        long node_id = Long.valueOf(nodeId).longValue();
-        Node nodeFromDB = nodeRepository.findById(node_id).get();
-
-        if(node.getName() != null) {
+    public Node updateNodeByNodeId(long node_id, long cluster_id, Node node){
+        Node nodeFromDB = nodeRepository.findNodeByNodeandClusterId(node_id, cluster_id);
+        if (!node.getName().equals("")) {
             nodeFromDB.setName(node.getName());
         }
-
-        if(node.getStatus() != null) {
+        if (!node.getStatus().equals("")) {
             nodeFromDB.setStatus(node.getStatus());
-            List<Sensor> sensors = sensorRepository.findSensorByNodeId(node_id);
-            for(Sensor sensor: sensors) {
-                sensor.setStatus(node.getStatus());
-                sensorRepository.save(sensor);
-            }
+        }
+        if (!node.getSeries_number().equals("")) {
+            nodeFromDB.setSeries_number(node.getSeries_number());
+        }
+        if (!node.getX_coordinate().equals("") && !node.getY_coordinate().equals("")) {
+            nodeFromDB.setX_coordinate(node.getX_coordinate());
+            nodeFromDB.setY_coordinate(node.getY_coordinate());
+        }
+        if (!node.getType().equals("")) {
+            nodeFromDB.setType(node.getType());
         }
         nodeRepository.save(nodeFromDB);
         return nodeFromDB;
@@ -56,20 +58,25 @@ public class nodeService {
         return node.toString();
     }
 
-    public void deleteNode(long node_id){
-        Long nodeId = Long.valueOf(node_id).longValue();
-        Iterable<Node> nodes = nodeRepository.findAll();
+    public void deleteNode(long node_id, long cluster_id, long building_id){
+        List<Node> nodes = nodeRepository.findNodeByClusterId(cluster_id);
         for(Node node: nodes){
-            if(nodeId == node.getId()){
-                nodeRepository.deleteById(node.getId());
-                sensorRepository.deleteSensorByNodeId(node.getId());
+            if(node_id == node.getId()){
+                nodeRepository.deleteNodeByClusterId(cluster_id);
+                sensorRepository.deleteSensorByNodeandClusterId(node.getId(), cluster_id);
             }
         }
     }
 
-    public Node getNodeByNodeId(long node_id){
-        Long nodeId = Long.valueOf(node_id).longValue();
-        return nodeRepository.findById(nodeId).get();
+    public Node getNodeByNodeId(long node_id, long cluster_id){
+        List<Node> nodes = nodeRepository.findNodeByClusterId(cluster_id);
+        Node node = null;
+        for (Node n: nodes) {
+            if (n.getId() == node_id) {
+                node = n;
+            }
+        }
+        return node;
     }
 
     public nodeNested getNodeNestedByNodeId(long node_id,String requirement){

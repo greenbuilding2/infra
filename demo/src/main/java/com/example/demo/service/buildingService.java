@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.repository.*;
 import com.example.demo.model.*;
 import com.example.demo.nested.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 @Service
@@ -19,9 +21,45 @@ public class buildingService {
     @Autowired
     ClusterRepository clusterRepository;
 
+    public List<Building> getAllBuilding() {
+        List<Building> buildings = new ArrayList<>();
+        Iterable<Building> iter = buildingRepository.findAll();
+        for (Building building: iter) {
+            buildings.add(building);
+        }
+        return buildings;
+    }
+
     public String saveBuildingToDB (Building building) {
         buildingRepository.save(building);
         return building.toString();
+    }
+
+    public Building updateBuildingByBuildingId(long building_id, Building building) {
+        Building buildingFromDB = buildingRepository.findById(building_id).get();
+        if (!building.getImage_url().equals("")) {
+            buildingFromDB.setImage_url(building.getImage_url());
+        }
+        if (!building.getAddress().equals("")) {
+            buildingFromDB.setAddress(building.getAddress());
+        }
+        if (!building.getCountry().equals("")) {
+            buildingFromDB.setCountry(building.getCountry());
+        }
+        if (!building.getState().equals("")) {
+            buildingFromDB.setState(building.getState());
+        }
+        if (!building.getCity().equals("")) {
+            buildingFromDB.setCity(building.getCity());
+        }
+        if (!building.getZipcode().equals("")) {
+            buildingFromDB.setZipcode(building.getZipcode());
+        }
+        if (!building.getNum_of_floors().equals("")) {
+            buildingFromDB.setNum_of_floors(building.getNum_of_floors());
+        }
+        buildingRepository.save(buildingFromDB);
+        return buildingFromDB;
     }
 
     public Iterable<Building> searchBuildingByLa(String latitude, String longitude, Integer radius){
@@ -81,25 +119,22 @@ public class buildingService {
     }
 
     public Building getBuildingByBuildingId(long building_id){
-        Long buildingId = Long.valueOf(building_id).longValue();
-        return buildingRepository.findById(buildingId).get();
+        return buildingRepository.findById(building_id).get();
     }
 
     public buildingNested getBuildingNestedByBuildingId(long building_id, String requirement){
-        Long buildingId = Long.valueOf(building_id).longValue();
-        Building building = buildingRepository.findById(buildingId).get();
-        List<Cluster> clusterList = clusterRepository.findClusterByBuildingId(buildingId);
-        List<Floor> floorList = floorRepository.findFloorByBuildingId(buildingId);
+
+        Building building = buildingRepository.findById(building_id).get();
+        List<Cluster> clusterList = clusterRepository.findClusterByBuildingId(building_id);
+        List<Floor> floorList = floorRepository.findFloorByBuildingId(building_id);
 
         buildingNested buildingNest = new buildingNested(building,floorList,clusterList);
 
         return buildingNest;
     }
 
-    public Map<Integer, Boolean> getFloorCluterMatchResult(buildingNested buildingNest) {
-
+    public Map<Integer, Boolean> getFloorClusterMatchResult(buildingNested buildingNest) {
         Map<Integer, Boolean> res = new HashMap<>();
-
         Iterable<Floor> floors = buildingNest.getFloors();
         for(Floor floor: floors) {
             Iterable<Cluster> clusters = buildingNest.getClusters();

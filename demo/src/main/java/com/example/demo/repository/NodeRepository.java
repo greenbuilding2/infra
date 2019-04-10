@@ -26,5 +26,11 @@ public interface NodeRepository extends CrudRepository <Node, Long> {
     @Query("select node from Node node where node.cluster_id = :cluster_id")
     List<Node> findNodeByClusterId(@Param("cluster_id") long cluster_id);
 
+    @Transactional
+    @Query("select node from Node node where node.id = :node_id and node.cluster_id = :cluster_id")
+    Node findNodeByNodeandClusterId(@Param("node_id") long node_id, @Param("cluster_id") long cluster_id);
+
+
+
 
 }

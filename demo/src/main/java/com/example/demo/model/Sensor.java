@@ -11,6 +11,8 @@ import java.util.Date;
         "sensor_id",
         "node_id",
         "cluster_id",
+        "floor_id",
+        "building_id",
         "name",
         "type",
         "series_number",
@@ -27,6 +29,8 @@ public class Sensor {
     private long id;
     private long node_id;
     private long cluster_id;
+    private long floor_id;
+    private long building_id;
     private Integer floor_number;
     private String name;
     private String type;
@@ -60,6 +64,22 @@ public class Sensor {
 
     public void setCluster_id(long cluster_id) {
         this.cluster_id = cluster_id;
+    }
+
+    public long getFloor_id() {
+        return floor_id;
+    }
+
+    public void setFloor_id(long floor_id) {
+        this.floor_id = floor_id;
+    }
+
+    public long getBuilding_id() {
+        return building_id;
+    }
+
+    public void setBuilding_id(long building_id) {
+        this.building_id = building_id;
     }
 
     public String getName() {
